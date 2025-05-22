@@ -50,7 +50,7 @@ def get_hint(question):
     prompt = PromptTemplate(
         input_variables=["context", "question"],
         template="""
-You are a helpful tutor. Based on the context, give a hint or partial explanation. Do not solve the entire question.
+You are a helpful tutor. Based on the context, give a hint or partial explanation in just few lines. Do not solve the entire question.
 
 Context: {context}
 Doubt: {question}

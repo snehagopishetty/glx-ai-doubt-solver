@@ -1,11 +1,7 @@
-# from langchain.embeddings import OpenAIEmbeddings
-# from langchain_openai import OpenAI
-from langchain_openai import OpenAIEmbeddings 
 from langchain.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.docstore.document import Document
-# from langchain.embeddings import FakeEmbeddings
-from langchain.embeddings import HuggingFaceEmbeddings  
+from langchain_cohere import CohereEmbeddings
 import os
 from dotenv import load_dotenv
 
@@ -19,8 +15,7 @@ def create_vectorstore():
     chunks = splitter.split_text(text)
     documents = [Document(page_content=chunk) for chunk in chunks]
 
-    # embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    db = FAISS.from_documents(documents, embeddings)
+    embeddings = CohereEmbeddings(cohere_api_key=os.getenv("COHERE_API_KEY"))
 
+    db = FAISS.from_documents(documents, embeddings)
     return db
