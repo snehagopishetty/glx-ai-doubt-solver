@@ -6,4 +6,4 @@ faiss-cpu
 tiktoken
 python-dotenv
 cohere
-langchain-cohere>=0.0.3
+langchain-cohere>=0.0.4

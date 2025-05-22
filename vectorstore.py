@@ -15,7 +15,10 @@ def create_vectorstore():
     chunks = splitter.split_text(text)
     documents = [Document(page_content=chunk) for chunk in chunks]
 
-    embeddings = CohereEmbeddings(cohere_api_key=os.getenv("COHERE_API_KEY"))
-
+    embeddings = CohereEmbeddings(
+    model="embed-english-v3.0", # or another supported model
+    cohere_api_key=os.getenv("COHERE_API_KEY")
+    )
+        
     db = FAISS.from_documents(documents, embeddings)
     return db
