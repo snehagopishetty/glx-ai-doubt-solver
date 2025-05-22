@@ -1,9 +1,9 @@
+cohere
+langchain
+langchain-cohere
+langchain-community
+faiss-cpu
 flask
 flask-cors
-langchain>=0.1.17
-langchain-community>=0.0.25
-faiss-cpu
 tiktoken
 python-dotenv
-cohere
-langchain-cohere>=0.0.4

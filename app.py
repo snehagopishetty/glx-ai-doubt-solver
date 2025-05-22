@@ -5,25 +5,10 @@ import os
 import traceback
 
 app = Flask(__name__)
-frontend_origin = "https://glx.globallogic.com"
-CORS(app, resources={r"/ask": {"origins": frontend_origin}}, allow_headers="", methods=["POST", "OPTIONS"])
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = frontend_origin
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
-    return response
+CORS(app)
 
 @app.route("/ask", methods=["POST", "OPTIONS"])
 def ask():
-    if request.method == "OPTIONS":
-        response = make_response()
-        response.headers['Access-Control-Allow-Origin'] = frontend_origin
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-        response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
-        return response, 204
-
     data = request.get_json()
     question = data.get("question")
     if not question:

@@ -40,9 +40,12 @@
     
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
-from langchain_community.chat_models import ChatOpenAI  # ✅ Use OpenRouter-compatible LLM wrapper
-from vectorstore import create_vectorstore
+# from langchain_community.chat_models import ChatOpenAI 
+from langchain_cohere import ChatCohere
+from vectorstore import create_vectorstore  
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def get_hint(question):
     vectorstore = create_vectorstore()
@@ -59,17 +62,18 @@ Hint:
 """
     )
 
-    llm = ChatOpenAI(
-        model_name="mistralai/mistral-7b-instruct:free",
-        openai_api_key=os.getenv("OPENROUTER_API_KEY"),
-        base_url="https://openrouter.ai/api/v1"
+    llm = ChatCohere(
+    model="command-r-plus",
+    temperature=0.4,
+    cohere_api_key=os.getenv("COHERE_API_KEY")
     )
 
     chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=vectorstore.as_retriever(),
-        chain_type="stuff",
-        chain_type_kwargs={"prompt": prompt}
+    llm=llm,
+    retriever=vectorstore.as_retriever(),
+    chain_type="stuff",
+    chain_type_kwargs={"prompt": prompt}
     )
+
 
     return chain.run(question)
