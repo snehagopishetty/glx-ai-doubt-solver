@@ -5,10 +5,14 @@ import os
 import traceback
 
 app = Flask(__name__)
-CORS(app, origins=["https://glx.globallogic.com"], supports_credentials=True)
+CORS(app, origins=["https://glx.globallogic.com"], methods=["POST", "OPTIONS"])
 
 @app.route("/ask", methods=["POST", "OPTIONS"])
 def ask():
+    if request.method == "OPTIONS":
+        return '', 204 # preflight response
+
+
     data = request.get_json()
     question = data.get("question")
     if not question:
