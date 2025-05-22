@@ -1,20 +1,32 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 from bot import get_hint
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/ask": {"origins": "*"}}, supports_credentials=True)
+
+#Allow only specific frontend origin (or use "*" for dev)
+frontend_origin = "https://glx.globallogic.com"
+
+CORS(app, resources={r"/ask": {"origins": frontend_origin}}, supports_credentials=True)
+
 @app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')  # Or 'https://glx.globallogic.com'
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = frontend_origin
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
     return response
 
-@app.route("/ask", methods=["POST"])
+@app.route("/ask", methods=["POST", "OPTIONS"])
 def ask():
-    data = request.json
+    if request.method == "OPTIONS":
+        response = make_response()
+        response.headers['Access-Control-Allow-Origin'] = frontend_origin
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+        response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
+        return response, 204
+
+    data = request.get_json()
     question = data.get("question")
     if not question:
         return jsonify({"error": "No question provided"}), 400
@@ -27,6 +39,5 @@ def ask():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    # app.run(port=5000, debug=True)
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
