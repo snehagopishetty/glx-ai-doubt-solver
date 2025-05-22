@@ -1,11 +1,3 @@
-# openai
-# langchain
-# faiss-cpu
-# flask
-# flask-cors
-# python-dotenv
-# tiktoken
-# langchain-community
 flask
 flask-cors
 langchain>=0.1.17
@@ -15,3 +7,4 @@ openai
 faiss-cpu
 tiktoken
 python-dotenv
+sentence-transformers
