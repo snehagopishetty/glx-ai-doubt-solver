@@ -7,10 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def create_vectorstore():
-    with open("data/doubts.txt") as f:
-        text = f.read()
-
+def create_vectorstore(text):
     splitter = CharacterTextSplitter(chunk_size=300, chunk_overlap=30)
     chunks = splitter.split_text(text)
     documents = [Document(page_content=chunk) for chunk in chunks]

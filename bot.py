@@ -48,7 +48,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_hint(question):
-    vectorstore = create_vectorstore()
+    vectorstore = create_vectorstore(question)
 
     prompt = PromptTemplate(
         input_variables=["context", "question"],
