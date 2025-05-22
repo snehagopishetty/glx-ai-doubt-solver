@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 from bot import get_hint
 import os
+import traceback
 
 app = Flask(__name__)
 
@@ -36,6 +37,7 @@ def ask():
         return jsonify({"hint": hint})
     except Exception as e:
         print(f"[❌] Internal Error: {e}")
+        traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
