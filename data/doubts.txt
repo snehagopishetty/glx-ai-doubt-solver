@@ -2,3 +2,4 @@ Why is binary search failing on rotated sorted arrays?
 What is the difference between BFS and DFS?
 How does dynamic programming avoid recomputation?
 Explain how hash maps resolve collisions.
+Natural Language Processing (NLP) is a subfield of AI that deals with understanding human language.

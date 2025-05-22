@@ -1,5 +1,6 @@
 # from langchain.embeddings import OpenAIEmbeddings
-from langchain_openai import OpenAI
+# from langchain_openai import OpenAI
+from langchain_openai import OpenAIEmbeddings 
 from langchain.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.docstore.document import Document
@@ -16,7 +17,7 @@ def create_vectorstore():
     chunks = splitter.split_text(text)
     documents = [Document(page_content=chunk) for chunk in chunks]
 
-    embeddings = OpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
+    embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
     db = FAISS.from_documents(documents, embeddings)
 
     return db
