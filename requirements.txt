@@ -2,9 +2,8 @@ flask
 flask-cors
 langchain>=0.1.17
 langchain-community>=0.0.25
-langchain-openai>=0.0.6
-openai
 faiss-cpu
 tiktoken
 python-dotenv
-sentence-transformers
+cohere
+langchain-cohere>=0.0.3
