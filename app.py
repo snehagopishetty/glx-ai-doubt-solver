@@ -5,7 +5,7 @@ import os
 import traceback
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://glx.globallogic.com"], supports_credentials=True)
 
 @app.route("/ask", methods=["POST", "OPTIONS"])
 def ask():
