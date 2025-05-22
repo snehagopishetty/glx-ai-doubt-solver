@@ -1,5 +1,7 @@
 from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI
+# from langchain.llms import OpenAI
+from langchain_openai import OpenAI
+
 from langchain.prompts import PromptTemplate
 from vectorstore import create_vectorstore
 import os

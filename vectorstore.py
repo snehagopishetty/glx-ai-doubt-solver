@@ -1,4 +1,5 @@
-from langchain.embeddings import OpenAIEmbeddings
+# from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAI
 from langchain.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.docstore.document import Document
