@@ -5,11 +5,8 @@ import os
 import traceback
 
 app = Flask(__name__)
-
-#Allow only specific frontend origin (or use "*" for dev)
 frontend_origin = "https://glx.globallogic.com"
-
-CORS(app, resources={r"/ask": {"origins": frontend_origin}}, supports_credentials=True)
+CORS(app, resources={r"/ask": {"origins": frontend_origin}}, allow_headers="", methods=["POST", "OPTIONS"])
 
 @app.after_request
 def add_cors_headers(response):
