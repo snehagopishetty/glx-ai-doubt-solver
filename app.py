@@ -17,6 +17,7 @@ def ask():
         hint = get_hint(question)
         return jsonify({"hint": hint})
     except Exception as e:
+        print(f"[❌] Internal Error: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
